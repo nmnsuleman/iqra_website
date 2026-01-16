@@ -1,9 +1,9 @@
 
 import React, { useState } from 'react';
 import { HashRouter, Routes, Route, Link, useLocation } from 'react-router-dom';
-import { 
-  Menu, X, Phone, Mail, MapPin, 
-  ChevronRight, BookOpen, UserPlus, 
+import {
+  Menu, X, Phone, Mail, MapPin,
+  ChevronRight, BookOpen, UserPlus,
   CreditCard, Calendar, Clock, Download,
   GraduationCap, Users, History, Award,
   ShoppingBag, Facebook, Youtube, Instagram, ArrowRight
@@ -24,24 +24,24 @@ export const LOGO_URL = "/assets/logo.png";
 
 export const SafeImage = ({ src, alt, className }: { src: string, alt: string, className?: string }) => {
   const [error, setError] = useState(false);
-  
+
   if (error || !src) {
     return (
       <div className={`bg-gray-50 flex items-center justify-center overflow-hidden border border-gray-100 p-4 ${className}`}>
-        <img 
-          src={LOGO_URL} 
-          alt="School Logo Placeholder" 
-          className="opacity-20 grayscale scale-75 object-contain max-h-[60%] max-w-[60%]" 
+        <img
+          src={LOGO_URL}
+          alt="School Logo Placeholder"
+          className="opacity-20 grayscale scale-75 object-contain max-h-[60%] max-w-[60%]"
         />
       </div>
     );
   }
 
   return (
-    <img 
-      src={src} 
-      alt={alt} 
-      className={className} 
+    <img
+      src={src}
+      alt={alt}
+      className={className}
       onError={() => setError(true)}
     />
   );
@@ -63,17 +63,16 @@ const Navbar = () => {
   ];
 
   return (
-    <nav className="bg-white shadow-sm sticky top-0 z-50 border-b border-gray-100">
+    <nav className="bg-white shadow-sm sticky top-0 z-50 border-b border-gray-100 animate-fade-in">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-24">
           <div className="flex items-center">
-            <Link to="/" className="flex-shrink-0 flex items-center group">
-              <img 
-                src={LOGO_URL} 
-                alt="Iqra Private School Logo" 
-                className="h-16 w-auto transition-transform group-hover:scale-105"
+            <Link to="/" className="flex-shrink-0 flex items-center group transition-transform hover:scale-105">
+              <img
+                src={LOGO_URL}
+                alt="Iqra Private School Logo"
+                className="h-16 w-auto"
                 onError={(e) => {
-                  // If even the direct path fails, show text fallback
                   e.currentTarget.style.display = 'none';
                   e.currentTarget.parentElement?.querySelector('.fallback-text')?.classList.remove('hidden');
                 }}
@@ -84,22 +83,22 @@ const Navbar = () => {
               </div>
             </Link>
           </div>
-          
+
           <div className="hidden xl:flex items-center space-x-8">
-            {navLinks.map((link) => (
+            {navLinks.map((link, idx) => (
               <Link
                 key={link.path}
                 to={link.path}
-                className={`${
-                  location.pathname === link.path ? 'text-brand-teal font-bold border-b-2 border-brand-gold' : 'text-gray-600 border-b-2 border-transparent'
-                } hover:text-brand-teal transition-all duration-200 text-sm font-semibold py-1`}
+                className={`${location.pathname === link.path ? 'text-brand-teal font-bold border-b-2 border-brand-gold' : 'text-gray-600 border-b-2 border-transparent'
+                  } hover:text-brand-teal transition-all duration-300 text-sm font-semibold py-1 hover:pb-2`}
+                style={{ animationDelay: `${idx * 100}ms` }}
               >
                 {link.name}
               </Link>
             ))}
             <Link
               to="/admissions"
-              className="bg-brand-gold text-brand-teal px-6 py-2.5 rounded-full font-bold text-sm hover:bg-yellow-500 transition-all shadow-sm active:scale-95"
+              className="bg-brand-gold text-brand-teal px-6 py-2.5 rounded-full font-bold text-sm hover:bg-yellow-500 transition-all shadow-sm active:scale-95 animate-scale-in delay-500"
             >
               APPLY NOW
             </Link>
@@ -124,9 +123,8 @@ const Navbar = () => {
                 key={link.path}
                 to={link.path}
                 onClick={() => setIsOpen(false)}
-                className={`block px-4 py-3 rounded-xl text-base font-semibold ${
-                  location.pathname === link.path ? 'bg-brand-teal text-white' : 'text-gray-700 hover:bg-brand-soft'
-                }`}
+                className={`block px-4 py-3 rounded-xl text-base font-semibold ${location.pathname === link.path ? 'bg-brand-teal text-white' : 'text-gray-700 hover:bg-brand-soft'
+                  }`}
               >
                 {link.name}
               </Link>
@@ -149,57 +147,77 @@ const Navbar = () => {
 
 const Footer = () => {
   return (
-    <footer className="bg-brand-teal text-white pt-20 pb-10">
+    <footer className="bg-brand-teal text-white pt-20 pb-10 overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16 mb-16">
-          <div className="space-y-6">
-            <img src={LOGO_URL} alt="Iqra Logo" className="h-20 w-auto brightness-0 invert" />
+          <div className="space-y-6 animate-fade-in-up">
+            <Link to="/" className="flex items-center group transition-transform hover:scale-105 origin-left">
+              <img
+                src={LOGO_URL}
+                alt="Iqra Logo"
+                className="h-20 w-auto brightness-0 invert"
+                onError={(e) => {
+                  e.currentTarget.style.display = 'none';
+                  e.currentTarget.parentElement?.querySelector('.fallback-text-footer')?.classList.remove('hidden');
+                }}
+              />
+              <div className="fallback-text-footer hidden flex flex-col ml-3">
+                <span className="text-white text-xl font-bold font-display leading-tight tracking-tight">IQRA PRIVATE SCHOOL</span>
+                <span className="text-teal-300 text-[10px] font-semibold uppercase tracking-widest">Excellence Since 1956</span>
+              </div>
+            </Link>
             <p className="text-teal-50/70 text-sm leading-relaxed max-w-xs">
               Providing affordable, high-quality, values-based education in the Heart of Bahrain for over 68 years.
             </p>
             <div className="flex space-x-5">
-              <a href="#" className="p-2 bg-white/5 rounded-lg hover:bg-brand-gold hover:text-brand-teal transition-all"><Facebook size={20}/></a>
-              <a href="#" className="p-2 bg-white/5 rounded-lg hover:bg-brand-gold hover:text-brand-teal transition-all"><Youtube size={20}/></a>
-              <a href="#" className="p-2 bg-white/5 rounded-lg hover:bg-brand-gold hover:text-brand-teal transition-all"><Instagram size={20}/></a>
+              <a href="#" className="p-2 bg-white/5 rounded-lg hover:bg-brand-gold hover:text-brand-teal transition-all transform hover:-translate-y-1"><Facebook size={20} /></a>
+              <a href="#" className="p-2 bg-white/5 rounded-lg hover:bg-brand-gold hover:text-brand-teal transition-all transform hover:-translate-y-1"><Youtube size={20} /></a>
+              <a href="#" className="p-2 bg-white/5 rounded-lg hover:bg-brand-gold hover:text-brand-teal transition-all transform hover:-translate-y-1"><Instagram size={20} /></a>
             </div>
           </div>
 
-          <div>
+          <div className="animate-fade-in-up delay-100">
             <h4 className="text-lg font-bold mb-8 text-brand-gold font-display tracking-tight">Academic Links</h4>
             <ul className="space-y-4 text-sm text-teal-50/80">
-              <li><Link to="/about" className="hover:text-brand-gold transition-colors">Our Journey</Link></li>
-              <li><Link to="/academics" className="hover:text-brand-gold transition-colors">Curriculum Tracks</Link></li>
-              <li><Link to="/admissions" className="hover:text-brand-gold transition-colors">Admissions Portal</Link></li>
-              <li><Link to="/info" className="hover:text-brand-gold transition-colors">Latest Circulars</Link></li>
-              <li><Link to="/store" className="hover:text-brand-gold transition-colors">Bookstore</Link></li>
+              <li><Link to="/about" className="hover:text-brand-gold transition-colors flex items-center hover:translate-x-2 transition-transform"><ChevronRight size={14} className="mr-2" /> Our Journey</Link></li>
+              <li><Link to="/academics" className="hover:text-brand-gold transition-colors flex items-center hover:translate-x-2 transition-transform"><ChevronRight size={14} className="mr-2" /> Curriculum Tracks</Link></li>
+              <li><Link to="/admissions" className="hover:text-brand-gold transition-colors flex items-center hover:translate-x-2 transition-transform"><ChevronRight size={14} className="mr-2" /> Admissions Portal</Link></li>
+              <li><Link to="/info" className="hover:text-brand-gold transition-colors flex items-center hover:translate-x-2 transition-transform"><ChevronRight size={14} className="mr-2" /> Latest Circulars</Link></li>
+              <li><Link to="/store" className="hover:text-brand-gold transition-colors flex items-center hover:translate-x-2 transition-transform"><ChevronRight size={14} className="mr-2" /> Bookstore</Link></li>
             </ul>
           </div>
 
-          <div>
+          <div className="animate-fade-in-up delay-200">
             <h4 className="text-lg font-bold mb-8 text-brand-gold font-display tracking-tight">Contact Information</h4>
             <ul className="space-y-5 text-sm text-teal-50/80">
-              <li className="flex items-start">
-                <MapPin size={20} className="mr-4 text-brand-gold shrink-0" />
-                <span>Building 214, Road 4111, Block 841, Isa Town, Bahrain</span>
+              <li className="flex items-start group">
+                <div className="p-2 bg-white/5 rounded-lg mr-4 text-brand-gold shrink-0 group-hover:bg-brand-gold group-hover:text-brand-teal transition-colors">
+                  <MapPin size={20} />
+                </div>
+                <span>Building 214, Road 4111, Block 841, <br />Isa Town, Bahrain</span>
               </li>
-              <li className="flex items-center">
-                <Phone size={20} className="mr-4 text-brand-gold shrink-0" />
+              <li className="flex items-center group">
+                <div className="p-2 bg-white/5 rounded-lg mr-4 text-brand-gold shrink-0 group-hover:bg-brand-gold group-hover:text-brand-teal transition-colors">
+                  <Phone size={20} />
+                </div>
                 <span>+973 1768 7922</span>
               </li>
-              <li className="flex items-center">
-                <Mail size={20} className="mr-4 text-brand-gold shrink-0" />
+              <li className="flex items-center group">
+                <div className="p-2 bg-white/5 rounded-lg mr-4 text-brand-gold shrink-0 group-hover:bg-brand-gold group-hover:text-brand-teal transition-colors">
+                  <Mail size={20} />
+                </div>
                 <span>info@iqraprivateschool.com</span>
               </li>
             </ul>
           </div>
 
-          <div>
+          <div className="animate-fade-in-up delay-300">
             <h4 className="text-lg font-bold mb-8 text-brand-gold font-display tracking-tight">Newsletter</h4>
             <p className="text-sm text-teal-50/70 mb-6">Stay informed about academic events and admissions.</p>
             <div className="flex bg-white/5 rounded-2xl p-1 focus-within:ring-2 ring-brand-gold transition-all">
-              <input 
-                type="email" 
-                placeholder="Your email" 
+              <input
+                type="email"
+                placeholder="Your email"
                 className="bg-transparent border-none px-4 py-3 w-full text-sm focus:outline-none placeholder:text-teal-100/30"
               />
               <button className="bg-brand-gold text-brand-teal px-4 py-3 rounded-xl hover:bg-yellow-500 transition-colors">
@@ -208,12 +226,12 @@ const Footer = () => {
             </div>
           </div>
         </div>
-        
-        <div className="pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center text-xs text-teal-100/40 gap-4 text-center md:text-left">
+
+        <div className="pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center text-xs text-teal-100/40 gap-4 text-center md:text-left animate-fade-in delay-500">
           <p>&copy; {new Date().getFullYear()} Iqra Private School. All Rights Reserved.</p>
           <div className="flex space-x-6">
-            <a href="#" className="hover:text-brand-gold">Privacy Policy</a>
-            <a href="#" className="hover:text-brand-gold">Terms of Service</a>
+            <a href="#" className="hover:text-brand-gold transition-colors">Privacy Policy</a>
+            <a href="#" className="hover:text-brand-gold transition-colors">Terms of Service</a>
           </div>
         </div>
       </div>
@@ -226,7 +244,7 @@ const App: React.FC = () => {
     <HashRouter>
       <div className="min-h-screen bg-brand-soft flex flex-col selection:bg-brand-gold/30">
         <Navbar />
-        <main className="flex-grow">
+        <main className="flex-grow animate-fade-in">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/about" element={<AboutUs />} />
