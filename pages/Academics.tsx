@@ -9,11 +9,13 @@ import {
   CheckCircle2
 } from 'lucide-react';
 import { SafeImage } from '../App';
+import { Canvas } from '@react-three/fiber';
+import { Stars } from '@react-three/drei';
 
 const GradeSection = ({ title, desc, subjects, index }: any) => (
   <div
     className="bg-white p-8 rounded-[32px] shadow-sm border border-gray-100 premium-card-hover group animate-fade-in-up"
-    style={{ animationDelay: `${index * 150}ms` }}
+    style={{ animationDelay: `${index * 100}ms` }}
   >
     <div className="flex items-center mb-6">
       <div className="p-4 bg-brand-soft text-brand-teal rounded-2xl mr-4 group-hover:bg-brand-teal group-hover:text-white transition-all duration-500 shadow-inner">
@@ -38,6 +40,11 @@ const Academics: React.FC = () => {
     <div className="bg-gray-50 min-h-screen">
       {/* Page Header */}
       <section className="bg-brand-teal py-28 text-white relative overflow-hidden">
+        <div className="absolute inset-0 pointer-events-none opacity-40">
+          <Canvas camera={{ position: [0, 0, 5], fov: 75 }}>
+            <Stars radius={100} depth={50} count={3000} factor={4} saturation={0} fade speed={1} />
+          </Canvas>
+        </div>
         <div className="absolute inset-0 opacity-20">
           <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-brand-lightTeal rounded-full blur-[120px] -mr-64 -mt-64 animate-pulse-soft"></div>
           <div className="absolute bottom-0 left-0 w-96 h-96 bg-brand-gold/20 rounded-full blur-[100px] -ml-48 -mb-48 animate-pulse-soft delay-700"></div>
@@ -60,8 +67,8 @@ const Academics: React.FC = () => {
               <p className="text-gray-600 mb-10 leading-relaxed text-xl font-medium">
                 At Iqra Private School, we deliver a robust curriculum aligned with the Federal Board (FBISE) and global pedagogical standards.
               </p>
-              <div className="bg-white p-8 rounded-[32px] shadow-xl border-l-[12px] border-brand-gold mb-10 premium-card-hover">
-                <h4 className="font-bold text-brand-teal text-xl mb-4 flex items-center font-display">
+              <div className="bg-white p-8 rounded-[32px] shadow-xl border-l-[12px] border-brand-gold mb-10 premium-card-hover group">
+                <h4 className="font-bold text-brand-teal text-xl mb-4 flex items-center font-display transition-colors group-hover:text-brand-gold">
                   <BookOpen size={24} className="mr-3 text-brand-gold" /> Strategic Update: IGCSE 2025
                 </h4>
                 <p className="text-gray-600 text-base leading-relaxed">

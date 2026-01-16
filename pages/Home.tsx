@@ -1,21 +1,61 @@
-
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect, Suspense, useRef } from 'react';
 import {
-  History, GraduationCap, Users, BookOpen,
-  CreditCard, Calendar, Clock, ShoppingBag,
-  ArrowRight, CheckCircle, Award, UserPlus, ChevronRight
+  ArrowRight,
+  ChevronRight,
+  Award,
+  BookOpen,
+  Clock,
+  CheckCircle,
+  UserPlus,
+  CreditCard,
+  ShoppingBag,
+  History,
+  Calendar
 } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { SafeImage } from '../App';
+import { Canvas, useFrame } from '@react-three/fiber';
+import { Float, Sphere, MeshDistortMaterial, Stars } from '@react-three/drei';
+import * as THREE from 'three';
 
 const HERO_IMAGES = [
-  "/assets/school_images/1.webp",
-  "/assets/school_images/2.webp",
-  "/assets/school_images/3.webp",
-  "/assets/school_images/4.webp",
-  "/assets/school_images/5.webp",
-  "/assets/school_images/6.webp"
+  "https://images.unsplash.com/photo-1546410531-bb4caa6b424d?q=80&w=2071&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=2070&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?q=80&w=2022&auto=format&fit=crop"
 ];
+
+const FloatingObject = () => {
+  return (
+    <Float speed={2} rotationIntensity={1.5} floatIntensity={2}>
+      <Sphere args={[1, 64, 64]} scale={2.4}>
+        <MeshDistortMaterial
+          color="#204349"
+          attach="material"
+          distort={0.4}
+          speed={1.5}
+          roughness={0.2}
+          metalness={0.8}
+        />
+      </Sphere>
+    </Float>
+  );
+};
+
+const HeroThreeD = () => {
+  return (
+    <div className="absolute inset-0 pointer-events-none opacity-40 lg:opacity-60">
+      <Canvas camera={{ position: [0, 0, 5], fov: 75 }}>
+        <ambientLight intensity={0.5} />
+        <pointLight position={[10, 10, 10]} intensity={1.5} color="#fdb927" />
+        <pointLight position={[-10, -10, -10]} intensity={0.5} color="#204349" />
+        <Suspense fallback={null}>
+          <FloatingObject />
+          <Stars radius={100} depth={50} count={5000} factor={4} saturation={0} fade speed={1} />
+        </Suspense>
+      </Canvas>
+    </div>
+  );
+};
 
 const HeroCarousel = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -63,7 +103,7 @@ const QuickLinkCard = ({ icon: Icon, title, desc, link, index }: any) => (
   <Link
     to={link}
     className="bg-white p-8 rounded-[32px] shadow-sm premium-card-hover group border border-gray-100 animate-fade-in-up"
-    style={{ animationDelay: `${index * 150}ms` }}
+    style={{ animationDelay: `${index * 100}ms` }}
   >
     <div className="w-16 h-16 bg-brand-soft rounded-2xl flex items-center justify-center text-brand-teal mb-6 group-hover:bg-brand-teal group-hover:text-white transition-all duration-500 transform group-hover:rotate-12 shadow-inner">
       <Icon size={32} />
@@ -82,6 +122,9 @@ const Home: React.FC = () => {
     <div className="overflow-hidden bg-brand-soft">
       {/* Hero Section */}
       <section className="relative min-h-[85vh] py-24 flex items-center bg-brand-teal overflow-hidden">
+        {/* Three.js Background */}
+        <HeroThreeD />
+
         {/* Background Decorative Elements */}
         <div className="absolute top-0 right-0 w-[60%] h-full bg-brand-lightTeal/30 -skew-x-12 translate-x-1/4 animate-fade-in duration-2000"></div>
         <div className="absolute top-1/4 left-10 w-96 h-96 bg-brand-gold/5 rounded-full blur-[120px] animate-pulse-soft"></div>
@@ -158,7 +201,7 @@ const Home: React.FC = () => {
                   className="w-full h-full object-cover transition-transform duration-[2000ms] group-hover:scale-110"
                 />
               </div>
-              <div className="absolute -bottom-12 -right-12 bg-brand-gold p-12 rounded-[40px] shadow-2xl z-20 hidden md:block border-[12px] border-white animate-scale-in delay-500">
+              <div className="absolute -bottom-12 -right-12 bg-brand-gold p-12 rounded-[40px] shadow-2xl z-20 hidden md:block border-[12px] border-white animate-scale-in delay-200">
                 <p className="text-6xl font-black text-brand-teal mb-2 font-display leading-none">2k+</p>
                 <p className="text-brand-teal font-bold uppercase tracking-widest text-[11px]">Enrolled Successes</p>
               </div>
@@ -191,7 +234,7 @@ const Home: React.FC = () => {
                   { text: 'Values-Based', icon: '💎' },
                   { text: 'Non-Profit', icon: '🤝' }
                 ].map((item, idx) => (
-                  <div key={item.text} className="flex items-center space-x-4 p-5 bg-brand-soft/80 rounded-[24px] border border-brand-teal/5 hover:border-brand-gold/30 hover:bg-white hover:shadow-xl transition-all duration-300 animate-fade-in-up" style={{ animationDelay: `${idx * 150}ms` }}>
+                  <div key={item.text} className="flex items-center space-x-4 p-5 bg-brand-soft/80 rounded-[24px] border border-brand-teal/5 hover:border-brand-gold/30 hover:bg-white hover:shadow-xl transition-all duration-300 animate-fade-in-up" style={{ animationDelay: `${idx * 100}ms` }}>
                     <span className="text-2xl">{item.icon}</span>
                     <span className="font-bold text-brand-teal text-base">{item.text}</span>
                   </div>

@@ -1,14 +1,12 @@
 @keyframes fadeInUp {
   from {
     opacity: 0;
-    transform: translateY(40px);
-    filter: blur(4px);
+    transform: translateY(20px) translateZ(0);
   }
 
   to {
     opacity: 1;
-    transform: translateY(0);
-    filter: blur(0);
+    transform: translateY(0) translateZ(0);
   }
 }
 
@@ -25,96 +23,72 @@
 @keyframes scaleIn {
   from {
     opacity: 0;
-    transform: scale(0.9);
+    transform: scale(0.95) translateZ(0);
   }
 
   to {
     opacity: 1;
-    transform: scale(1);
+    transform: scale(1) translateZ(0);
   }
 }
 
 @keyframes imageZoom {
   0% {
-    transform: scale(1);
+    transform: scale(1) translateZ(0);
   }
 
   100% {
-    transform: scale(1.1);
+    transform: scale(1.08) translateZ(0);
   }
 }
 
 @keyframes slideInRight {
   from {
     opacity: 0;
-    transform: translateX(60px);
-    filter: blur(4px);
+    transform: translateX(30px) translateZ(0);
   }
 
   to {
     opacity: 1;
-    transform: translateX(0);
-    filter: blur(0);
+    transform: translateX(0) translateZ(0);
   }
 }
 
 @keyframes slideInLeft {
   from {
     opacity: 0;
-    transform: translateX(-60px);
-    filter: blur(4px);
+    transform: translateX(-30px) translateZ(0);
   }
 
   to {
     opacity: 1;
-    transform: translateX(0);
-    filter: blur(0);
+    transform: translateX(0) translateZ(0);
   }
 }
 
 @keyframes float {
   0% {
-    transform: translateY(0px);
+    transform: translateY(0px) translateZ(0);
   }
 
   50% {
-    transform: translateY(-15px);
+    transform: translateY(-10px) translateZ(0);
   }
 
   100% {
-    transform: translateY(0px);
-  }
-}
-
-@keyframes hover-tilt {
-  0% {
-    transform: perspective(1000px) rotateX(0) rotateY(0);
-  }
-
-  100% {
-    transform: perspective(1000px) rotateX(5deg) rotateY(10deg);
+    transform: translateY(0px) translateZ(0);
   }
 }
 
 @keyframes text-reveal {
   0% {
-    clip-path: polygon(0 100%, 100% 100%, 100% 100%, 0% 100%);
-    transform: translateY(20px);
+    clip-path: inset(100% 0 0 0);
+    transform: translateY(15px) translateZ(0);
   }
 
   100% {
-    clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
-    transform: translateY(0);
-  }
-}
-
-@keyframes gradient-shimmer {
-  0% {
-    background-position: -200% center;
-  }
-
-  100% {
-    background-position: 200% center;
+    clip-path: inset(0 0 0 0);
+    transform: translateY(0) translateZ(0);
   }
 }
 
@@ -122,50 +96,59 @@
 
   0%,
   100% {
-    transform: scale(1);
+    transform: scale(1) translateZ(0);
     opacity: 0.8;
   }
 
   50% {
-    transform: scale(1.05);
+    transform: scale(1.03) translateZ(0);
     opacity: 1;
   }
 }
 
 .animate-fade-in-up {
-  animation: fadeInUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: fadeInUp 0.7s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+  will-change: transform, opacity;
 }
 
 .animate-fade-in {
-  animation: fadeIn 1.2s ease-out forwards;
+  animation: fadeIn 0.8s ease-out forwards;
+  will-change: opacity;
 }
 
 .animate-scale-in {
-  animation: scaleIn 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  animation: scaleIn 0.6s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+  will-change: transform, opacity;
 }
 
 .animate-image-zoom {
   animation: imageZoom 20s ease-in-out infinite alternate;
+  will-change: transform;
 }
 
 .animate-slide-in-right {
-  animation: slideInRight 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: slideInRight 0.7s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+  will-change: transform, opacity;
 }
 
 .animate-slide-in-left {
-  animation: slideInLeft 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: slideInLeft 0.7s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+  will-change: transform, opacity;
 }
 
 .animate-float {
-  animation: float 4s ease-in-out infinite;
+  animation: float 5s ease-in-out infinite;
+  will-change: transform;
 }
 
 .animate-text-reveal {
-  animation: text-reveal 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: text-reveal 0.9s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+  will-change: transform, clip-path;
 }
 
 .animate-pulse-soft {
-  animation: pulse-soft 3s ease-in-out infinite;
+  animation: pulse-soft 4s ease-in-out infinite;
+  will-change: transform, opacity;
 }
 
 /* Staggered Delay Utilities */
