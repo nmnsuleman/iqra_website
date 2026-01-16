@@ -19,9 +19,12 @@ import { Float, Sphere, MeshDistortMaterial, Stars } from '@react-three/drei';
 import * as THREE from 'three';
 
 const HERO_IMAGES = [
-  "https://images.unsplash.com/photo-1546410531-bb4caa6b424d?q=80&w=2071&auto=format&fit=crop",
-  "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=2070&auto=format&fit=crop",
-  "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?q=80&w=2022&auto=format&fit=crop"
+  "/assets/school_images/1.webp",
+  "/assets/school_images/2.webp",
+  "/assets/school_images/3.webp",
+  "/assets/school_images/4.webp",
+  "/assets/school_images/5.webp",
+  "/assets/school_images/6.webp"
 ];
 
 const FloatingObject = () => {
