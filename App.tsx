@@ -84,23 +84,25 @@ const Navbar = () => {
             </Link>
           </div>
 
-          <div className="hidden xl:flex items-center space-x-8">
+          <div className="hidden xl:flex items-center space-x-10">
             {navLinks.map((link, idx) => (
               <Link
                 key={link.path}
                 to={link.path}
-                className={`${location.pathname === link.path ? 'text-brand-teal font-bold border-b-2 border-brand-gold' : 'text-gray-600 border-b-2 border-transparent'
-                  } hover:text-brand-teal transition-all duration-300 text-sm font-semibold py-1 hover:pb-2`}
+                className={`relative py-2 text-sm font-bold tracking-tight transition-all duration-300 group
+                  ${location.pathname === link.path ? 'text-brand-teal' : 'text-gray-500 hover:text-brand-teal'}`}
                 style={{ animationDelay: `${idx * 100}ms` }}
               >
                 {link.name}
+                <span className={`absolute bottom-0 left-0 h-0.5 bg-brand-gold transition-all duration-300
+                  ${location.pathname === link.path ? 'w-full' : 'w-0 group-hover:w-full'}`}></span>
               </Link>
             ))}
             <Link
               to="/admissions"
-              className="bg-brand-gold text-brand-teal px-6 py-2.5 rounded-full font-bold text-sm hover:bg-yellow-500 transition-all shadow-sm active:scale-95 animate-scale-in delay-500"
+              className="bg-brand-gold text-brand-teal px-8 py-3 rounded-2xl font-black text-sm hover:bg-yellow-500 transition-all shadow-lg active:scale-95 animate-scale-in delay-500 uppercase tracking-widest border border-brand-teal/5"
             >
-              APPLY NOW
+              Apply Now
             </Link>
           </div>
 
